@@ -3,22 +3,19 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
-if (builder.Environment.IsDevelopment())
+builder.Services.AddSwaggerGen(c =>
 {
-    builder.Services.AddSwaggerGen(c =>
-    {
-        c.SwaggerDoc("v1", 
-            new OpenApiInfo 
-            {
-                Title = "Todo API", 
-                Description = "Keep track of your tasks", 
-                Version = "v1"
-            });
-    });
-
-}
+    c.SwaggerDoc("v1", 
+        new OpenApiInfo 
+        {
+            Title = "Todo API", 
+            Description = "Keep track of your tasks", 
+            Version = "v1"
+        });
+});
 
 var app = builder.Build();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
