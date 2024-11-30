@@ -1,10 +1,9 @@
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
 
 builder.Services.AddEndpointsApiExplorer();
-if (app.Environment.IsDevelopment())
+if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddSwaggerGen(c =>
     {
@@ -17,14 +16,18 @@ if (app.Environment.IsDevelopment())
             });
     });
 
+}
+
+var app = builder.Build();
+if (app.Environment.IsDevelopment())
+{
     app.UseSwagger();
     app.UseSwaggerUI(c => 
     {
-        c.SwaggerEndpoint("/swagger/vq/swagger.json", "Todo API V1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Todo API V1");
     });
 }
 
 app.MapGet("/", () => "Hello World!");
 
 app.Run();
-
